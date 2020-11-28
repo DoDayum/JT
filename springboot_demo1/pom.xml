@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<!--
+		Maven: Maven是一站式的项目管理工具. 负责项目构建/打包/测试/发布等工作.   xxx.jar/xxx.war
+
+		知识点一:  了解坐标的作用
+		maven项目标识  组Id/项目名称/版本号称之为maven坐标
+		1.maven中管理的jar包文件众多  如何有效的管理呢?  采用坐标的形式
+		2.在本地仓库中 jar包位置就是坐标的位置,maven工作通过坐标查找执行的jar
+
+		知识点二:	maven中的jar包文件具有依赖的传递性.
+		例子:		A.jar ~~~~ B.jar ~~~~~~ C.jar ~~~~ D.jar
+		maven:jar包的传递性如何实现的?
+
+	-->
+	<groupId>com.jt</groupId>
+	<artifactId>springboot_demo1</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>springboot_demo1</name>
+	<description>Demo project for Spring Boot</description>
+
+	<!--
+		作用1: parent标签 集中定义了SpringBoot所有依赖jar包的版本信息.
+			   由官网解决了jar包冲突性问题.
+		作用2: 本地仓库中没有该文件的jar包 parent表示的是一个聚合工程POM(定义).
+	-->
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.4.0</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+
+
+	<!--maven项目配置信息-->
+	<properties>
+		<!--指定了jdk版本信息-->
+		<java.version>1.8</java.version>
+		<!--
+			跳过测试类打包
+			默认条件下程序打包会执行测试了类 如果测试类有问题,则程序打包失败.
+		-->
+		<skipTests>true</skipTests>
+	</properties>
+
+	<dependencies>
+
+		<!--
+			手动依赖项 该依赖项被springBoot进行了高度的整合
+			springBoot帮助大家动态的生成了配置项目,简化了配置的步骤
+			该配置称之为自动化的配置信息
+			spring-boot-starter springBoot自动化的启动项.
+			开箱即用: 只需要导入jar包简单的配置即可实现对应的功能.
+		-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.junit.vintage</groupId>
+					<artifactId>junit-vintage-engine</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<!--支持热部署 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+		</dependency>
+	</dependencies>
+
+	<!--
+		SpringBoot利用maven管理工具进行项目打包/发布/等操作
+		该标签必须添加
+	-->
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

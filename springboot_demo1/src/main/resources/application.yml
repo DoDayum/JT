@@ -1,0 +1,13 @@
+debug: false
+server:
+  port: 8080
+#  servlet:
+#    #发布路径
+#    context-path:
+
+#引入mvc
+spring:
+  mvc:  #视图解析器配置
+    view:
+      prefix: templates/user
+      suffix: .html
